@@ -39,6 +39,19 @@ func ExampleWithWriterWithLevel() {
 	// {"level":"debug","message":"message"}
 }
 
+func ExampleUpdate() {
+	ctx := ctxlog.WithNewLogger(context.Background(), os.Stdout, zerolog.InfoLevel)
+
+	ctx = ctxlog.Update(ctx, func(c zerolog.Context) zerolog.Context {
+		return c.Int("answer", 42)
+	})
+
+	ctxlog.Info(ctx).Msg("message")
+
+	// Output:
+	// {"level":"info","answer":42,"message":"message"}
+}
+
 func ExampleWithSampler() {
 	ctx := ctxlog.WithNewLogger(context.Background(), os.Stdout, zerolog.InfoLevel)
 	ctx = ctxlog.WithSampler(ctx, &zerolog.BasicSampler{N: 2})

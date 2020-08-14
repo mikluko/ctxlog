@@ -43,6 +43,10 @@ func WithSampler(ctx context.Context, s zerolog.Sampler) context.Context {
 	return WithLogger(ctx, l)
 }
 
+func Update(ctx context.Context, f func(zerolog.Context) zerolog.Context) context.Context {
+	return WithLogger(ctx, f(Logger(ctx).With()).Logger())
+}
+
 func Trace(ctx context.Context) *zerolog.Event {
 	l := Logger(ctx)
 	return l.Trace()
