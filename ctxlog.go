@@ -82,6 +82,11 @@ func Log(ctx context.Context) *zerolog.Event {
 	return l.Log()
 }
 
+func Level(ctx context.Context, lvl zerolog.Level) *zerolog.Event {
+	l := Logger(ctx)
+	return l.WithLevel(lvl)
+}
+
 func Print(ctx context.Context, v interface{}) {
 	l := Logger(ctx)
 	l.Print(v)
